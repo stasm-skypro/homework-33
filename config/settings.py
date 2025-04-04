@@ -36,6 +36,7 @@ INSTALLED_APPS += [
     "rest_framework_simplejwt",  # Django REST Framework Simple JWT
     "drf_yasg",  # Django REST Framework Swagger
     "corsheaders",  # Django CORS Headers
+    "django_celery_beat",  # Django Celery Beat
 ]
 # Local apps
 INSTALLED_APPS += [
@@ -192,10 +193,11 @@ STRIPE_API_KEY = os.getenv("STRIPE_API_KEY")
 
 # Настройка Cors
 CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://127.0.0.1:3000"]
-CORS_ALLOW_ALL_ORIGINS = True
 CSRF_TRUSTED_ORIGINS = ["http://localhost:3000", "http://127.0.0.1:3000"]
 
 # Настройка Celery
 CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL")  # URL-адрес брокера сообщений
 CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND")  # URL-адрес брокера результатов, также Redis
 CELERY_TIMEZONE = TIME_ZONE
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
