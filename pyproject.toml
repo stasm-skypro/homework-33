@@ -1,0 +1,30 @@
+[project]
+name = "school"
+version = "0.1.0"
+description = "Module 8, Homework-33 Celery"
+authors = [
+    {name = "Станислав Маяцкий",email = "stasm226@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "django (>=5.2,<6.0)",
+    "django-filter (>=25.1,<26.0)",
+    "djangorestframework (>=3.16.0,<4.0.0)",
+    "djangorestframework-simplejwt (>=5.5.0,<6.0.0)",
+    "drf-yasg (>=1.21.10,<2.0.0)",
+    "ipython (>=9.0.2,<10.0.0)",
+    "pillow (>=11.1.0,<12.0.0)",
+    "psycopg2-binary (>=2.9.10,<3.0.0)",
+    "celery (>=5.5.0,<6.0.0)",
+    "redis (>=5.2.1,<6.0.0)",
+    "django-cors-headers (>=4.7.0,<5.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.test.dependencies]
+coverage = "^7.8.0"
