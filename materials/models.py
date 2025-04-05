@@ -15,6 +15,7 @@ class Course(models.Model):
     description = models.TextField(verbose_name="Описание курса")
     image = models.ImageField(upload_to="courses/", blank=True, null=True, verbose_name="Превью курса")
     owner = models.ForeignKey("users.User", on_delete=models.CASCADE, blank=True, null=True, verbose_name="Владелец курса")
+    last_updated = models.DateTimeField(auto_now=True, verbose_name="Последнее обновление")
 
     def __str__(self):
         """

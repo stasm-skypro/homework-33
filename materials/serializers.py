@@ -59,7 +59,7 @@ class CourseSerializer(serializers.ModelSerializer):
         """
 
         model = Course
-        fields = ["id", "name", "description", "lessons_count", "is_subscribed"]
+        fields = ["id", "name", "description", "lessons_count", "is_subscribed", "last_updated"]
         validators = [DescriptionValidator(field="description")]
 
 

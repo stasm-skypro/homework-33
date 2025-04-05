@@ -3,13 +3,18 @@ from celery import shared_task
 from django.core.mail import send_mail
 
 from config.settings import EMAIL_HOST_USER
-from .models import Course
+from materials.models import Course
 
 logger = logging.getLogger(__name__)
 
 
 @shared_task
 def send_course_update_email(course_id):
+    """
+    Отправляет уведомление об обновлении курса
+    :param course_id: id курса
+    :return: None
+    """
     from users.models import Subscription  # локальный импорт для избежания циклов
 
     try:  # Если курс с таким id не существует, то ничего не делаем
