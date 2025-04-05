@@ -1,4 +1,7 @@
 import logging
+from datetime import timedelta
+from django.utils import timezone
+
 from celery import shared_task
 from django.core.mail import send_mail
 
@@ -22,6 +25,12 @@ def send_course_update_email(course_id):
     except Course.DoesNotExist:
         return
 
+    # Если с момента последнего обновления прошло менее 4 часов, то ничего не делаем
+    now = timezone.now()
+    if now - course.updated_at < timedelta(hours=4):
+        return
+
+    # Отправляем уведомление
     subject = "Обновление курса: %s" % course.name
     message = "Материалы курса «%s» были обновлены.\n\nОписание: %s" % (course.name, course.description)
     subscribers = Subscription.objects.filter(course=course).select_related("user")
