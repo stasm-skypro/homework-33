@@ -36,6 +36,7 @@ INSTALLED_APPS += [
     "rest_framework_simplejwt",  # Django REST Framework Simple JWT
     "drf_yasg",  # Django REST Framework Swagger
     "corsheaders",  # Django CORS Headers
+    "django_celery_beat",  # Django Celery Beat
 ]
 # Local apps
 INSTALLED_APPS += [
@@ -186,6 +187,28 @@ SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("Bearer",),  # Настройка типа заголовка для токена
 }
 
-
+# Настройка Stripe
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
 STRIPE_API_KEY = os.getenv("STRIPE_API_KEY")
+
+# Настройка Cors
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://127.0.0.1:3000"]
+CSRF_TRUSTED_ORIGINS = ["http://localhost:3000", "http://127.0.0.1:3000"]
+
+# Настройка Celery
+CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL")  # URL-адрес брокера сообщений
+CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND")  # URL-адрес брокера результатов, также Redis
+CELERY_TIMEZONE = TIME_ZONE
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers.DatabaseScheduler"
+
+# Настройка почты
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_PORT = os.getenv("EMAIL_PORT", 587)
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "True")
+EMAIL_USE_SSL = os.getenv("EMAIL_USE_SSL", "False")
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
